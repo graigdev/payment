@@ -2,7 +2,7 @@
     "name": "graigdev/payment",
     "description": "A Laravel package that generates payment codes for subscriptions with wallet management",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
