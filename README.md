@@ -23,7 +23,36 @@ Then publish the config file:
 php artisan vendor:publish --tag="payment-config"
 ```
 
-Run the migrations:
+### Optional: Publish Migrations and Models
+
+You can publish the migrations to customize them before running:
+
+```bash
+php artisan vendor:publish --tag="payment-migrations"
+```
+
+#### Publishing Models
+
+You have two options to publish the models:
+
+**Option 1**: Using the vendor:publish command:
+```bash
+php artisan vendor:publish --tag="payment-models"
+```
+
+**Option 2**: Using the custom command (recommended):
+```bash
+php artisan payment:publish-models
+```
+
+The custom command automatically adjusts namespaces and references within the models. Use the `--force` flag to overwrite existing models:
+```bash
+php artisan payment:publish-models --force
+```
+
+If you publish the models, all references in your code should be updated from `GraigDev\Payment\Models` to `App\Models\Payment`.
+
+Finally, run the migrations:
 
 ```bash
 php artisan migrate
@@ -38,6 +67,9 @@ Each user has a wallet that can be used to manage their balance.
 ```php
 // Get a user's wallet
 $wallet = \GraigDev\Payment\Models\Wallet::where('user_id', auth()->id())->first();
+
+// If you published the models, use this instead:
+// $wallet = \App\Models\Payment\Wallet::where('user_id', auth()->id())->first();
 
 // Deposit funds
 $wallet->deposit(100, 'Manual deposit');
